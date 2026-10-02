@@ -440,6 +440,9 @@ export default function Navbar({
 
         /* Responsive Breakpoints */
         @media (max-width: 860px) {
+          .top-strip {
+            display: none !important;
+          }
           .nav-links, .desktop-only {
             display: none !important;
           }
@@ -456,9 +459,6 @@ export default function Navbar({
           }
           .brand-name {
             font-size: 0.98rem;
-          }
-          .top-strip-inner {
-            justify-content: center;
           }
           .strip-left {
             display: none;
