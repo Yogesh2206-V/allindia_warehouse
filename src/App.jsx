@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import TrustedBrands from './components/TrustedBrands';
@@ -10,6 +10,7 @@ import Footer from './components/Footer';
 import FloatingActionBar from './components/FloatingActionBar';
 import IndustrialChatbot from './components/IndustrialChatbot';
 import CookieConsent from './components/CookieConsent';
+import AuthModal from './components/AuthModal';
 
 export default function App() {
   const [reqModalState, setReqModalState] = useState({
@@ -18,6 +19,48 @@ export default function App() {
     prefill: null
   });
   const [searchFilters, setSearchFilters] = useState(null);
+  const [authModalState, setAuthModalState] = useState({
+    isOpen: false,
+    initialTab: 'login' // 'login' | 'register'
+  });
+  const [currentUser, setCurrentUser] = useState(null);
+  const [isChatOpen, setIsChatOpen] = useState(false);
+
+  // Initialize logged in user from localStorage if present
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('aiw_auth_user');
+      if (stored) {
+        setCurrentUser(JSON.parse(stored));
+      }
+    } catch (e) {
+      console.error('Error loading stored user:', e);
+    }
+  }, []);
+
+  const handleOpenAuth = (initialTab = 'login') => {
+    setAuthModalState({
+      isOpen: true,
+      initialTab
+    });
+  };
+
+  const handleCloseAuth = () => {
+    setAuthModalState(prev => ({
+      ...prev,
+      isOpen: false
+    }));
+  };
+
+  const handleAuthSuccess = (userData) => {
+    setCurrentUser(userData);
+    handleCloseAuth();
+  };
+
+  const handleLogout = () => {
+    localStorage.removeItem('aiw_auth_user');
+    setCurrentUser(null);
+  };
 
   const handleOpenRequirement = (mode = 'need', prefill = null) => {
     setReqModalState({
@@ -62,14 +105,15 @@ export default function App() {
     }
   };
 
-  const [isChatOpen, setIsChatOpen] = useState(false);
-
   return (
     <div className="app-root">
-      {/* 1. Simplified Navigation Header */}
+      {/* 1. Navigation Header with Website View Menu & Top Actions */}
       <Navbar 
         onOpenRequirement={handleOpenRequirement}
         onNavigateSection={handleNavigateSection}
+        onOpenAuth={handleOpenAuth}
+        currentUser={currentUser}
+        onLogout={handleLogout}
       />
 
       {/* 2. Hero Section with 1-Step Search & Trust Badges */}
@@ -89,32 +133,32 @@ export default function App() {
         onOpenInquiry={handleOpenRequirement}
       />
 
-      {/* 6. Simple Rent & Space Estimator */}
+      {/* 5. Simple Rent & Space Estimator */}
       <CostEstimatorCalculator 
         onOpenInquiry={handleOpenRequirement}
       />
 
-      {/* 7. Strategic Warehousing Hubs */}
+      {/* 6. Strategic Warehousing Hubs */}
       <LocationsHub 
         onSelectCityFilter={handleSelectCityFilter}
       />
 
-      {/* 8. Direct Requirement / Post Property Form */}
+      {/* 7. Direct Requirement / Post Property Form */}
       <RequirementForm />
 
-      {/* 9. Clean Footer */}
+      {/* 8. Clean Footer */}
       <Footer 
         onOpenRequirement={handleOpenRequirement}
         onNavigateSection={handleNavigateSection}
       />
 
-      {/* 10. Floating WhatsApp & Call Widget */}
+      {/* 9. Floating WhatsApp & Call Widget */}
       <FloatingActionBar 
         onOpenRequirement={handleOpenRequirement}
         onNavigateSection={handleNavigateSection}
       />
 
-      {/* 11. AI Industrial Chatbot (Hides on Scroll & Desktop Widget) */}
+      {/* 10. AI Industrial Chatbot (Hides on Scroll & Desktop Widget) */}
       <IndustrialChatbot 
         isOpen={isChatOpen}
         onClose={() => setIsChatOpen(false)}
@@ -122,16 +166,26 @@ export default function App() {
         onOpenRequirement={handleOpenRequirement}
       />
 
-      {/* 12. First-Time Visitor Cookie Consent Banner */}
+      {/* 11. First-Time Visitor Cookie Consent Banner */}
       <CookieConsent />
 
-      {/* Requirement Modal Popup (when triggered from CTAs) */}
+      {/* 12. Requirement Modal Popup */}
       {reqModalState.isOpen && (
         <RequirementForm 
           isModal={true}
           initialMode={reqModalState.mode}
           prefillData={reqModalState.prefill}
           onClose={handleCloseRequirement}
+        />
+      )}
+
+      {/* 13. Login / Sign Up Authentication Modal */}
+      {authModalState.isOpen && (
+        <AuthModal 
+          isOpen={true}
+          initialTab={authModalState.initialTab}
+          onClose={handleCloseAuth}
+          onAuthSuccess={handleAuthSuccess}
         />
       )}
     </div>
