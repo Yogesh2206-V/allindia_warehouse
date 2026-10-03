@@ -1,0 +1,739 @@
+/* Scoped CSS for NoBroker-Style All India Warehouse Marketplace */
+
+:root {
+  --mp-primary: #0f2744;
+  --mp-red: #e11d48;
+  --mp-teal: #004953;
+  --mp-accent: #f59e0b;
+  --mp-bg: #f8fafc;
+  --mp-card-bg: #ffffff;
+  --mp-border: #e2e8f0;
+  --mp-text-main: #0f172a;
+  --mp-text-muted: #64748b;
+  --mp-radius: 8px;
+  --mp-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+  --mp-shadow-hover: 0 10px 25px rgba(15, 23, 42, 0.12);
+}
+
+.marketplace-container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+/* =========================================
+   1. Search Bar Component Styles
+   ========================================= */
+.mp-search-card {
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(15, 39, 68, 0.12);
+  border: 1px solid var(--mp-border);
+  overflow: visible;
+  position: relative;
+  z-index: 40;
+}
+
+.mp-search-tabs {
+  display: flex;
+  background: #f1f5f9;
+  border-bottom: 1px solid var(--mp-border);
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+}
+
+.mp-search-tab {
+  flex: 1;
+  padding: 12px 16px;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #475569;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.2s ease;
+}
+
+.mp-search-tab.active {
+  color: var(--mp-red);
+  background: #ffffff;
+  border-bottom: 3px solid var(--mp-red);
+}
+
+.mp-search-fields-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 1.2fr 1.2fr 1fr auto;
+  gap: 12px;
+  padding: 18px;
+  align-items: center;
+}
+
+@media (max-width: 960px) {
+  .mp-search-fields-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+.mp-field-group {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.mp-field-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--mp-text-muted);
+  letter-spacing: 0.03em;
+  margin-bottom: 4px;
+}
+
+.mp-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.mp-input-icon {
+  position: absolute;
+  left: 12px;
+  color: #94a3b8;
+  pointer-events: none;
+}
+
+.mp-input-control {
+  width: 100%;
+  padding: 10px 12px 10px 38px;
+  border: 1px solid var(--mp-border);
+  border-radius: var(--mp-radius);
+  font-size: 0.92rem;
+  color: var(--mp-text-main);
+  background: #ffffff;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.mp-input-control:focus {
+  border-color: var(--mp-primary);
+  box-shadow: 0 0 0 3px rgba(15, 39, 68, 0.1);
+}
+
+.mp-autosuggest-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  border: 1px solid var(--mp-border);
+  border-radius: var(--mp-radius);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  margin-top: 4px;
+  max-height: 220px;
+  overflow-y: auto;
+  z-index: 100;
+}
+
+.mp-suggest-item {
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 0.88rem;
+  color: #334155;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mp-suggest-item:hover {
+  background: #f8fafc;
+  color: var(--mp-red);
+}
+
+.mp-search-submit-btn {
+  background: var(--mp-red);
+  color: #ffffff;
+  font-weight: 700;
+  padding: 12px 24px;
+  border-radius: var(--mp-radius);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 0.95rem;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.mp-search-submit-btn:hover {
+  background: #be123c;
+  transform: translateY(-1px);
+}
+
+.mp-quick-chips-wrap {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 18px 16px;
+  background: #ffffff;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.mp-chips-label {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--mp-text-muted);
+  white-space: nowrap;
+}
+
+.mp-city-chip {
+  padding: 4px 12px;
+  background: #f1f5f9;
+  border: 1px solid var(--mp-border);
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #334155;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.mp-city-chip:hover, .mp-city-chip.active {
+  background: var(--mp-primary);
+  color: #ffffff;
+  border-color: var(--mp-primary);
+}
+
+/* =========================================
+   2. Listing Page Layout & Filters
+   ========================================= */
+.mp-listing-layout {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  gap: 24px;
+  margin-top: 24px;
+  align-items: start;
+}
+
+@media (max-width: 900px) {
+  .mp-listing-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mp-filter-sidebar {
+  background: #ffffff;
+  border: 1px solid var(--mp-border);
+  border-radius: 10px;
+  padding: 20px;
+  position: sticky;
+  top: 80px;
+}
+
+.mp-filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--mp-border);
+  padding-bottom: 12px;
+  margin-bottom: 16px;
+}
+
+.mp-filter-group {
+  margin-bottom: 20px;
+}
+
+.mp-filter-group-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--mp-text-main);
+  margin-bottom: 10px;
+}
+
+.mp-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.86rem;
+  color: #475569;
+  margin-bottom: 8px;
+  cursor: pointer;
+}
+
+.mp-checkbox-label input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--mp-red);
+}
+
+/* Property Card */
+.mp-cards-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.mp-property-card {
+  background: #ffffff;
+  border: 1px solid var(--mp-border);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: var(--mp-shadow);
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  transition: transform 0.2s, box-shadow 0.2s;
+  position: relative;
+}
+
+.mp-property-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--mp-shadow-hover);
+}
+
+@media (max-width: 680px) {
+  .mp-property-card {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mp-card-thumb-wrap {
+  position: relative;
+  height: 100%;
+  min-height: 200px;
+  background: #0f172a;
+}
+
+.mp-card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.mp-badge-verified {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: #004953;
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 4px 8px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.mp-badge-purpose {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  background: rgba(15, 23, 42, 0.85);
+  color: #ffffff;
+  font-size: 0.72rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+}
+
+.mp-card-content {
+  padding: 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.mp-card-title {
+  font-size: 1.12rem;
+  font-weight: 700;
+  color: var(--mp-text-main);
+  line-height: 1.3;
+  margin-bottom: 6px;
+  cursor: pointer;
+}
+
+.mp-card-title:hover {
+  color: var(--mp-red);
+}
+
+.mp-card-location {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--mp-text-muted);
+  margin-bottom: 12px;
+}
+
+.mp-card-specs-row {
+  display: flex;
+  gap: 20px;
+  padding: 10px 0;
+  border-top: 1px solid #f1f5f9;
+  border-bottom: 1px solid #f1f5f9;
+  margin-bottom: 14px;
+}
+
+.mp-spec-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.mp-spec-label {
+  font-size: 0.72rem;
+  color: var(--mp-text-muted);
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+.mp-spec-val {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--mp-primary);
+}
+
+.mp-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 14px;
+}
+
+.mp-card-tag {
+  font-size: 0.75rem;
+  background: #f1f5f9;
+  color: #475569;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.mp-card-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+}
+
+.mp-btn-contact {
+  background: var(--mp-red);
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  padding: 8px 18px;
+  border-radius: var(--mp-radius);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: background-color 0.2s;
+}
+
+.mp-btn-contact:hover {
+  background: #be123c;
+}
+
+.mp-btn-save {
+  background: #f8fafc;
+  border: 1px solid var(--mp-border);
+  color: #475569;
+  padding: 8px 12px;
+  border-radius: var(--mp-radius);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.mp-btn-save.saved {
+  color: var(--mp-red);
+  background: #fff1f2;
+  border-color: #fecdd3;
+}
+
+/* =========================================
+   3. Property Detail View
+   ========================================= */
+.mp-detail-container {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  margin-top: 24px;
+}
+
+@media (max-width: 900px) {
+  .mp-detail-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.mp-gallery-main {
+  width: 100%;
+  height: 380px;
+  border-radius: 12px;
+  object-fit: cover;
+  background: #0f172a;
+}
+
+.mp-gallery-thumbs {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.mp-gallery-thumb {
+  width: 90px;
+  height: 60px;
+  border-radius: 6px;
+  object-fit: cover;
+  cursor: pointer;
+  border: 2px solid transparent;
+}
+
+.mp-gallery-thumb.active {
+  border-color: var(--mp-red);
+}
+
+.mp-facts-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 16px 0;
+  background: #ffffff;
+  border: 1px solid var(--mp-border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.mp-facts-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  font-size: 0.88rem;
+}
+
+.mp-facts-table tr:last-child td {
+  border-bottom: none;
+}
+
+.mp-fact-key {
+  color: var(--mp-text-muted);
+  font-weight: 600;
+  width: 40%;
+}
+
+.mp-fact-val {
+  color: var(--mp-text-main);
+  font-weight: 700;
+}
+
+/* Sticky Contact Card */
+.mp-sticky-contact-box {
+  position: sticky;
+  top: 90px;
+  background: #ffffff;
+  border: 1px solid var(--mp-border);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--mp-shadow);
+}
+
+.mp-price-highlight {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--mp-primary);
+  margin-bottom: 4px;
+}
+
+/* =========================================
+   4. Post Property Wizard (4-Step Form)
+   ========================================= */
+.mp-wizard-card {
+  background: #ffffff;
+  border: 1px solid var(--mp-border);
+  border-radius: 12px;
+  box-shadow: var(--mp-shadow);
+  padding: 30px;
+  max-width: 760px;
+  margin: 30px auto;
+}
+
+.mp-progress-bar-wrap {
+  height: 6px;
+  background: #e2e8f0;
+  border-radius: 3px;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+
+.mp-progress-fill {
+  height: 100%;
+  background: var(--mp-red);
+  transition: width 0.3s ease;
+}
+
+.mp-wizard-steps-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.mp-step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #94a3b8;
+}
+
+.mp-step-indicator.active {
+  color: var(--mp-red);
+}
+
+.mp-step-indicator.done {
+  color: var(--mp-teal);
+}
+
+.mp-step-number {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #e2e8f0;
+  color: #475569;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.78rem;
+}
+
+.mp-step-indicator.active .mp-step-number {
+  background: var(--mp-red);
+  color: #ffffff;
+}
+
+.mp-step-indicator.done .mp-step-number {
+  background: var(--mp-teal);
+  color: #ffffff;
+}
+
+/* =========================================
+   5. Lead Modal & OTP
+   ========================================= */
+.mp-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.mp-modal-content {
+  background: #ffffff;
+  border-radius: 14px;
+  max-width: 480px;
+  width: 100%;
+  padding: 28px;
+  position: relative;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.25);
+  animation: mpModalPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes mpModalPop {
+  from { opacity: 0; transform: scale(0.95); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.mp-otp-input-group {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  margin: 20px 0;
+}
+
+.mp-otp-box {
+  width: 45px;
+  height: 50px;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: 1.5px solid var(--mp-border);
+  border-radius: 8px;
+  background: #f8fafc;
+}
+
+.mp-otp-box:focus {
+  border-color: var(--mp-red);
+  background: #ffffff;
+  outline: none;
+}
+
+/* =========================================
+   6. Admin Panel
+   ========================================= */
+.mp-admin-table-wrap {
+  overflow-x: auto;
+  background: #ffffff;
+  border: 1px solid var(--mp-border);
+  border-radius: 10px;
+  box-shadow: var(--mp-shadow);
+  margin-top: 16px;
+}
+
+.mp-admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.88rem;
+  text-align: left;
+}
+
+.mp-admin-table th {
+  background: #0f172a;
+  color: #ffffff;
+  padding: 12px 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.mp-admin-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--mp-border);
+}
+
+.mp-admin-table tr:hover {
+  background: #f8fafc;
+}
+
+.mp-status-pill {
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  display: inline-block;
+}
+
+.mp-status-pill.approved {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.mp-status-pill.pending {
+  background: #fef9c3;
+  color: #854d0e;
+}

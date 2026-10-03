@@ -9,6 +9,7 @@ import propertyRoutes from './routes/propertyRoutes.js';
 import inquiryRoutes from './routes/inquiryRoutes.js';
 import requirementRoutes from './routes/requirementRoutes.js';
 import authRoutes from './routes/authRoutes.js';
+import marketplaceRoutes from './routes/marketplaceRoutes.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,6 +44,7 @@ app.use('/api/properties', propertyRoutes);
 app.use('/api/inquiries', inquiryRoutes);
 app.use('/api/requirements', requirementRoutes);
 app.use('/api/auth', authRoutes);
+app.use('/api/marketplace', marketplaceRoutes);
 
 // Root API Welcome
 app.get('/api', (req, res) => {

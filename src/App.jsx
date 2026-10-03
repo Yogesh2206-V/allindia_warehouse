@@ -11,6 +11,7 @@ import FloatingActionBar from './components/FloatingActionBar';
 import IndustrialChatbot from './components/IndustrialChatbot';
 import CookieConsent from './components/CookieConsent';
 import AuthModal from './components/AuthModal';
+import MarketplaceApp from './marketplace/MarketplaceApp';
 
 export default function App() {
   const [reqModalState, setReqModalState] = useState({
@@ -25,6 +26,22 @@ export default function App() {
   });
   const [currentUser, setCurrentUser] = useState(null);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [marketplaceView, setMarketplaceView] = useState(false);
+
+  // Sync hash routing for marketplace
+  useEffect(() => {
+    const checkHash = () => {
+      const h = window.location.hash;
+      if (h.includes('properties') || h.includes('property') || h.includes('post-property') || h.includes('admin') || h.includes('marketplace')) {
+        setMarketplaceView(true);
+      } else {
+        setMarketplaceView(false);
+      }
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
 
   // Initialize logged in user from localStorage if present
   useEffect(() => {
@@ -116,35 +133,42 @@ export default function App() {
         onLogout={handleLogout}
       />
 
-      {/* 2. Hero Section with 1-Step Search & Trust Badges */}
-      <Hero 
-        activeFilters={searchFilters}
-        onSearchFilters={handleSearchFilters}
-        onSelectCategory={handleSelectCategory}
-      />
+      {marketplaceView ? (
+        /* Marketplace Experience View (Search, Verified Listings, Detail View, Post Property, Admin) */
+        <MarketplaceApp onOpenRequirement={handleOpenRequirement} />
+      ) : (
+        <>
+          {/* 2. Hero Section with 1-Step Search & Trust Badges */}
+          <Hero 
+            activeFilters={searchFilters}
+            onSearchFilters={handleSearchFilters}
+            onSelectCategory={handleSelectCategory}
+          />
 
-      {/* 3. Trusted Clients & Brands */}
-      <TrustedBrands />
+          {/* 3. Trusted Clients & Brands */}
+          <TrustedBrands />
 
-      {/* 4. Verified Warehouse Listings */}
-      <PropertyListings 
-        externalFilters={searchFilters}
-        onResetFilters={() => setSearchFilters(null)}
-        onOpenInquiry={handleOpenRequirement}
-      />
+          {/* 4. Verified Warehouse Listings */}
+          <PropertyListings 
+            externalFilters={searchFilters}
+            onResetFilters={() => setSearchFilters(null)}
+            onOpenInquiry={handleOpenRequirement}
+          />
 
-      {/* 5. Simple Rent & Space Estimator */}
-      <CostEstimatorCalculator 
-        onOpenInquiry={handleOpenRequirement}
-      />
+          {/* 5. Simple Rent & Space Estimator */}
+          <CostEstimatorCalculator 
+            onOpenInquiry={handleOpenRequirement}
+          />
 
-      {/* 6. Strategic Warehousing Hubs */}
-      <LocationsHub 
-        onSelectCityFilter={handleSelectCityFilter}
-      />
+          {/* 6. Strategic Warehousing Hubs */}
+          <LocationsHub 
+            onSelectCityFilter={handleSelectCityFilter}
+          />
 
-      {/* 7. Direct Requirement / Post Property Form */}
-      <RequirementForm />
+          {/* 7. Direct Requirement / Post Property Form */}
+          <RequirementForm />
+        </>
+      )}
 
       {/* 8. Clean Footer */}
       <Footer 

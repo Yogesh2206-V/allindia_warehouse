@@ -172,8 +172,22 @@ export default function Navbar({
 
             {/* Desktop Center Links */}
             <div className="nav-links">
-              <button onClick={() => handleNavClick('properties')} className="nav-link">
+              <button 
+                onClick={() => {
+                  window.location.hash = '#/properties';
+                  handleNavClick('properties');
+                }} 
+                className="nav-link"
+              >
                 <Search size={15} /> Find Warehouses
+              </button>
+              <button 
+                onClick={() => {
+                  window.location.hash = '#/post-property';
+                }} 
+                className="nav-link"
+              >
+                <PlusCircle size={15} /> Post Property
               </button>
               <button onClick={() => handleNavClick('locations')} className="nav-link">
                 <MapPin size={15} /> Locations & Hubs
@@ -450,8 +464,16 @@ export default function Navbar({
                 <button 
                   onClick={() => { setMenuOpen(false); onOpenRequirement && onOpenRequirement('need'); }} 
                   className="btn btn-red w-full btn-sm"
+                  style={{ marginBottom: '8px' }}
                 >
                   Need Warehouse Space?
+                </button>
+                <button 
+                  onClick={() => { setMenuOpen(false); window.location.hash = '#/admin'; }} 
+                  className="btn btn-outline w-full btn-sm"
+                  style={{ fontSize: '0.78rem', color: '#64748b' }}
+                >
+                  Marketplace Admin Portal
                 </button>
               </div>
             </aside>
